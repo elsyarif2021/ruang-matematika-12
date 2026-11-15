@@ -197,3 +197,11 @@ input::file-selector-button { margin-right: 8px; padding: 5px 8px; border: 1px s
   .chapter-card { transition: none; }
   .chapter-card:hover { transform: none; }
 }
+
+.tab[aria-current="page"] { background: var(--forest); color: #fff; border-color: var(--forest); }
+.curriculum-heading { margin: 22px 0 14px; }
+.curriculum-lessons h3 { margin-bottom: 7px; font-size: 1.25rem; }
+.curriculum-lessons .topics { margin-top: 14px; }
+.curriculum-example { margin-top: 14px; padding: 11px 14px; border-radius: 10px; background: #ecf4ea; }
+.curriculum-example summary { font-size: .91rem; font-weight: 730; }
+.curriculum-example p { margin-top: 8px; font-size: .93rem; }

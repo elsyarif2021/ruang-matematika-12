@@ -119,7 +119,7 @@ const quizzes = {
 const main = document.querySelector('#main');
 const sourceUrl = 'https://static.sc.cloudapp.web.id/content/pdf/bukuteks/kurikulum21/Matematika_BS_KLS_XII_Rev.pdf';
 const bookHash = 'b4cecf12512f24f9810f35d6710efe7a8d2e9166d203430f10133a11e718aa0b';
-const pages = ['beranda','materi','rumus','kuis','sumber'];
+const pages = ['beranda','materi','kurikulum','rumus','kuis','sumber'];
 const scores = {};
 try {
   const previous = JSON.parse(localStorage.getItem('ruang-matematika-xii-scores') || '{}') || {};
@@ -153,7 +153,7 @@ function home() {
   main.innerHTML = `
   <section class="hero">
     <div class="hero-copy"><span class="kicker">Belajar Matematika Kelas XII</span><h1>Dari rumus ke <em>pemahaman.</em></h1><p>Pelajari konsep dari buku acuan, uji angka dengan kalkulator, lalu cek pemahaman lewat kuis dengan langkah penyelesaian.</p>
-      <div class="actions"><a class="button mint" href="#materi/barisan">Mulai belajar <span aria-hidden="true">→</span></a><a class="button ghost" href="#rumus/barisan">Buka kalkulator</a></div>
+      <div class="actions"><a class="button mint" href="#kurikulum">Mulai belajar <span aria-hidden="true">→</span></a><a class="button ghost" href="#rumus/barisan">Buka kalkulator</a></div>
     </div>
     <figure class="hero-visual"><figcaption>Pertumbuhan geometri <span>Uₙ = a · rⁿ⁻¹</span></figcaption><canvas id="hero-chart" aria-label="Ilustrasi grafik pertumbuhan geometri" role="img"></canvas></figure>
   </section>
@@ -386,17 +386,18 @@ function route() {
   if(raw==='main') {main.focus();return;}
   if(chartResize){chartResize.disconnect();chartResize=null;}
   document.querySelectorAll('[data-nav]').forEach(link=>{
-    if(link.dataset.nav===page)link.setAttribute('aria-current','page');
+    if(link.dataset.nav===(page==='kurikulum'?'materi':page))link.setAttribute('aria-current','page');
     else link.removeAttribute('aria-current');
   });
   updateProgress();
   if(page==='beranda')home();
   if(page==='materi')material(chapter);
+  if(page==='kurikulum')renderCurriculum(chapterId,detail);
   if(page==='rumus')calculator(chapter,detail);
   if(page==='kuis')quiz(chapter);
   if(page==='sumber')source(detail);
   if(previousPage) {
-    if(previousPage!==page)window.scrollTo(0,0);
+    if(previousPage!==page || page==='kurikulum')window.scrollTo(0,0);
     main.focus({preventScroll:true});
   }
   previousPage=page;
