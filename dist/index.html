@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#112923">
+<title>Ruang Matematika XII</title>
+<meta name="description" content="Pelajari Matematika Kelas XII dengan visualisasi interaktif, kalkulator rumus, dan kuis per bab.">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div class="shell">
+  <a class="skip" href="#main">Langsung ke konten</a>
+  <aside class="sidebar">
+    <a href="#beranda" class="brand"><span class="logo" aria-hidden="true">√</span><span>Ruang Matematika<small>KELAS XII</small></span></a>
+    <nav class="primary-nav" aria-label="Menu utama">
+      <a href="#beranda" data-nav="beranda"><span aria-hidden="true">⌂</span> Beranda</a>
+      <a href="#materi" data-nav="materi"><span aria-hidden="true">▤</span> Materi</a>
+      <a href="#rumus" data-nav="rumus"><span aria-hidden="true">∑</span> Kalkulator</a>
+      <a href="#kuis" data-nav="kuis"><span aria-hidden="true">◇</span> Kuis</a>
+      <a href="#sumber" data-nav="sumber"><span aria-hidden="true">▣</span> Sumber</a>
+    </nav>
+    <div class="side-progress">
+      <div>Progres kuis <strong id="progress-label">0 / 4</strong></div>
+      <progress id="progress" max="4" value="0" aria-label="Jumlah kuis yang sudah diselesaikan"></progress>
+      <small>Kuis bab selesai</small>
+    </div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div class="topbar-inner"><p>SMA / MA / SMK / MAK</p><a href="#sumber">Buku acuan <span aria-hidden="true">→</span></a></div></header>
+    <main id="main" tabindex="-1"></main>
+    <footer>Ruang Matematika XII <span>•</span> Materi mengacu pada Edisi Revisi 2025</footer>
+  </div>
+</div>
+<script src="./app.js" defer></script>
+</body>
+</html>
