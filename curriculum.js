@@ -110,37 +110,52 @@ function renderCurriculum(requestedTrack, requestedSemester) {
   const notes = trackId === 'lanjut'
     ? 'Panduan resmi menyebutnya Matematika Tingkat Lanjut pada Fase F. Sebutan Fase F+ merujuk pada jalur ini dalam peta belajar.'
     : '';
-  main.innerHTML = pageHead('Materi Kurikulum Merdeka', 'Kelas XII · Pilih kelompok dan semester untuk membuka konsep, rumus, dan contoh soal.') + `
-    <nav class="tabs" aria-label="Kelompok matematika">
-      ${Object.entries(curriculumTracks).map(([id, item]) => `
-        <a class="tab" href="#kurikulum/${id}/${semester}" aria-current="${id === trackId ? 'page' : 'false'}">${item.label}</a>`).join('')}
-    </nav>
-    <nav class="tabs" aria-label="Pilih semester">
-      ${Object.entries(semesterLabels).map(([id, label]) => `
-        <a class="tab" href="#kurikulum/${trackId}/${id}" aria-current="${id === semester ? 'page' : 'false'}">Semester ${label}</a>`).join('')}
-    </nav>
-    <div class="section-head curriculum-heading">
-      <h2>${track.label}</h2><p>${track.phase} · Semester ${semesterLabels[semester]}</p>
+  main.innerHTML = `
+    <header class="curriculum-header">
+      <p class="kicker">Matematika Kelas XII</p>
+      <h1>Materi Kurikulum Merdeka</h1>
+      <p>Pelajari konsep, rumus, dan contoh soal sesuai kelompok dan semester.</p>
+    </header>
+    <div class="curriculum-controls">
+      <div>
+        <p id="curriculum-track-label">Kelompok matematika</p>
+        <nav class="curriculum-track" aria-labelledby="curriculum-track-label">
+          ${Object.entries(curriculumTracks).map(([id, item]) => `
+            <a href="#kurikulum/${id}/${semester}" ${id === trackId ? 'aria-current="page"' : ''}>${item.label}</a>`).join('')}
+        </nav>
+      </div>
+      <div>
+        <p id="curriculum-semester-label">Semester</p>
+        <nav class="curriculum-semester" aria-labelledby="curriculum-semester-label">
+          ${Object.entries(semesterLabels).map(([id, label]) => `
+            <a href="#kurikulum/${trackId}/${id}" ${id === semester ? 'aria-current="page"' : ''}>${label}</a>`).join('')}
+        </nav>
+      </div>
     </div>
-    <div class="source-stack curriculum-lessons">
-      ${track[semester].map(lesson => `
-        <article class="panel">
-          <h3>${lesson.title}</h3><p>${lesson.summary}</p>
-          <div class="topics">${lesson.topics.map(([name, detail]) => `
-            <details><summary>${name}</summary><div class="topic-body"><p>${detail}</p></div></details>`).join('')}
-          </div>
-          <details class="curriculum-example"><summary>Contoh dan pembahasan</summary><p>${lesson.example}</p></details>
-          ${lesson.links ? `<div class="actions">${lesson.links.map(([label, url]) => `<a class="button ghost" href="${url}">${label}</a>`).join('')}</div>` : ''}
-        </article>`).join('')}
-      <section class="panel">
-        <h3>Referensi dan bab dari buku acuan</h3>
-        <p>Pembagian Ganjil–Genap mengikuti peta belajar ini dan dapat disesuaikan dengan alur tujuan pembelajaran sekolah.</p>
-        ${notes ? `<p>${notes}</p>` : ''}
-        <div class="actions">
-          <a class="button ghost" href="#materi/barisan">Bab buku acuan</a>
-          <a class="button ghost" href="https://repositori.kemendikdasmen.go.id/33608/1/5.%20Final%20Panduan%20Mata%20Pelajaran%20Matematika_12_09_2025_Revisi%203.pdf" target="_blank" rel="noopener">Panduan resmi</a>
-          <a class="button ghost" href="https://www.ruangguru.com/blog/materi-matematika-kelas-12-kurikulum-merdeka" target="_blank" rel="noopener">Ringkasan Ruangguru</a>
-        </div>
-      </section>
-    </div>`;
+    <section aria-labelledby="curriculum-lesson-label">
+      <div class="section-head curriculum-heading">
+        <h2 id="curriculum-lesson-label">Bab semester ${semesterLabels[semester].toLowerCase()}</h2><p>${track.phase}</p>
+      </div>
+      <div class="curriculum-lessons">
+        ${track[semester].map(lesson => `
+          <article class="panel curriculum-lesson">
+            <h3>${lesson.title}</h3><p class="curriculum-summary">${lesson.summary}</p>
+            <div class="curriculum-topics">${lesson.topics.map(([name, detail]) => `
+              <details><summary>${name}</summary><p>${detail}</p></details>`).join('')}
+            </div>
+            <details class="curriculum-example"><summary>Contoh dan pembahasan</summary><p>${lesson.example}</p></details>
+            ${lesson.links ? `<div class="actions">${lesson.links.map(([label, url]) => `<a class="button ghost" href="${url}">${label}</a>`).join('')}</div>` : ''}
+          </article>`).join('')}
+      </div>
+    </section>
+    <section class="panel curriculum-references">
+      <h2>Referensi dan bab dari buku acuan</h2>
+      <p>Pembagian Ganjil–Genap mengikuti peta belajar ini dan dapat disesuaikan dengan alur tujuan pembelajaran sekolah.</p>
+      ${notes ? `<p>${notes}</p>` : ''}
+      <div class="actions">
+        <a class="button ghost" href="#materi/barisan">Bab buku acuan</a>
+        <a class="button ghost" href="https://repositori.kemendikdasmen.go.id/33608/1/5.%20Final%20Panduan%20Mata%20Pelajaran%20Matematika_12_09_2025_Revisi%203.pdf" target="_blank" rel="noopener">Panduan resmi</a>
+        <a class="button ghost" href="https://www.ruangguru.com/blog/materi-matematika-kelas-12-kurikulum-merdeka" target="_blank" rel="noopener">Ringkasan Ruangguru</a>
+      </div>
+    </section>`;
 }
